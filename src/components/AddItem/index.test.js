@@ -6,6 +6,7 @@ import React from "react";
 import { test, expect } from "@jest/globals";
 // Import stuff from React testing library
 import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom/extend-expect"; // we need this to use the custom jest-dom matchers
 import userEvent from "@testing-library/user-event";
 
 // Import component that we're testing
@@ -34,6 +35,6 @@ const expected = "Add item:";
 
 // Assert
 //  Compare actual and expected to check if the label of the input has value of 'AddItem:'
-expect(actual).toHaveValue(expected);
+expect(actual).toHaveTextContent(expected);
 
 })
