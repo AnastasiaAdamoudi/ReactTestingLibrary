@@ -17,21 +17,29 @@ import AddItem from "./index.js";
 //- an input with an "Add item:" label
 //- a button containing the value of the `buttonText` prop
 
-test("Input should have 'Add item' label", function () {
+test("Input should have 'Add item' label and a button with the 'buttonText' property", function () {
   // 3 As:
   // Arrange
+  // declare constants for the input and button
+  const mockAddToList = jest.fn(); // mock function to pass in as a prop to the AddItem component
+  const buttonText = "Add To List"; // mock button text to pass in as a prop to the AddItem component
+
   //  render the component
-  render(<AddItem />);
+  render(<AddItem addToList={mockAddToList} buttonText={buttonText} />);
 
   // screen.logTestingPlaygroundURL();
   // screen.debug();
 
   // Act
-  //  Make a variable to assign the input that we want to check
-  const actual = screen.getByLabelText(/Add item:/i);
-  const expected = "Add item:";
+  //  Make variables to assign the input and the button text that we want to check
+  const inputLabel = screen.getByText(/add item:/i);
+  const input = screen.getByRole("textbox");
+  const button = screen.getByRole("button", { name: buttonText });
 
-  // Assert
-  //  Compare actual and expected to check if the label of the input has value of 'AddItem:'
-  expect(actual).toHaveTextContent(expected);
+    // Assert
+  //  Compare actual and expected to check if the label of the input has value of 'AddItem:' and the button has the value of the 'buttonText' prop
+  expect(inputLabel).toBeInTheDocument(); // check if the label is in the document
+  expect(input).toBeInTheDocument(); // check if the input is in the document
+  expect(button).toBeInTheDocument(); // check if the button is in the document
+  expect(button).toHaveTextContent(buttonText); // check if the button has the text content of the buttonText prop
 });
